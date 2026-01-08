@@ -95,5 +95,5 @@ if st.session_state["screen5_completed"]:
 
 
 st.divider()
-#st.write(st.session_state["responses"])
+st.write(st.session_state["responses"])
 
