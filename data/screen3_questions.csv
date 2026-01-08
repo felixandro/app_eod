@@ -1,0 +1,10 @@
+﻿type;title;selectbox
+key;;proposito
+label;Características del Usuario;¿Cuál es el Propósito de su viaje?
+opcion_1;;Trabajo
+opcion_2;;Estudio
+opcion_3;;Otro
+opcion_4;;
+opcion_5;;
+opcion_6;;
+opcion_7;;
