@@ -1,0 +1,35 @@
+# Entornos virtuales Python
+app_eod_env/
+app_eod_env2/
+
+# Carpetas de caché Python
+src/__pycache__/
+ui/__pycache__/
+
+# Carpetas de proyecto
+assets/
+config/
+data/
+
+# Archivos batch
+start_app.bat
+start_app2.bat
+
+# Python general
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Variables de entorno
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db

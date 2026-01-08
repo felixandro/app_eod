@@ -78,6 +78,9 @@ def generate_location_question_widget(od):
         responses_dict[f"{od}_latitude"] = location[0] if location else ""
         responses_dict[f"{od}_longitude"] = location[1] if location else ""
 
+        if adress == st.session_state.get(f"{od}_geocoded", ""):
+            st.success("Coincide la Dirección Ingresada con la Georreferenciada")
+
     st.divider()
 
     return responses_dict
@@ -100,10 +103,8 @@ def direction_input_question(od):
     )
 
     if calle != "" and nro_calle != "" and comuna != "":
-
-        st.session_state[f"{od}_ingresado"] = True
-
         adress = f"{calle} #{nro_calle}, {comuna}, Chile"
+
         responses_dict = {}
         responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_calle"] = calle
@@ -134,10 +135,8 @@ def intersection_input_question(od):
     )
 
     if calle1 != "" and calle2 != "" and comuna != "":
-
-        st.session_state[f"{od}_ingresado"] = True
-
         adress = f"{calle1} & {calle2}, {comuna}, Chile"
+
         responses_dict = {}
         responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_calle1"] = calle1
@@ -164,10 +163,8 @@ def landmark_input_question(od):
     )
 
     if landmark != "" and comuna != "":        
-
-        st.session_state[f"{od}_ingresado"] = True
-
         adress = f"{landmark}, {comuna}, Chile"
+
         responses_dict = {}
         responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_hito"] = landmark
@@ -193,6 +190,7 @@ def generate_geocode_button(od, adress: str):
         
     if geocode_button:
 
+        st.session_state[f"{od}_geocoded"] = adress
         location = georreferenciar(adress)
 
         if location:
