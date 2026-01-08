@@ -54,26 +54,29 @@ def generate_location_question_widget(od):
 
     st.subheader(f"{od} del viaje")
 
+    responses_dict = {f"{od}": ""}
+
     location_type = selectbox_question(
         label="Tipo de ubicación",
         options=["Dirección","Intersección","Hito"],
         key=f"{od}_location_type_selectbox"
     )
 
-    adress = ""
-    responses_dict = {f"{od}_comuna": ""}
-
     if location_type == "Dirección":
-        adress, responses_dict = direction_input_question(od)
+        responses_dict = direction_input_question(od)
 
     elif location_type == "Intersección":
-        adress, responses_dict = intersection_input_question(od)
+        responses_dict = intersection_input_question(od)
 
     elif location_type == "Hito":
-        adress, responses_dict = landmark_input_question(od)
+        responses_dict = landmark_input_question(od)
+
+    adress = responses_dict.get(f"{od}", "")
 
     if adress != "":
         location = generate_geocode_button(od, adress)
+        responses_dict[f"{od}_latitude"] = location[0] if location else ""
+        responses_dict[f"{od}_longitude"] = location[1] if location else ""
 
     st.divider()
 
@@ -97,20 +100,24 @@ def direction_input_question(od):
     )
 
     if calle != "" and nro_calle != "" and comuna != "":
+
+        st.session_state[f"{od}_ingresado"] = True
+
         adress = f"{calle} #{nro_calle}, {comuna}, Chile"
         responses_dict = {}
+        responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_calle"] = calle
         responses_dict[f"{od}_nro_calle"] = nro_calle
         responses_dict[f"{od}_comuna"] = comuna
-        return adress, responses_dict
+        return responses_dict
     
     else:
-        empty_adress = ""
         empty_responses_dict = {}
+        empty_responses_dict[f"{od}"] = ""
         empty_responses_dict[f"{od}_calle"] = ""
         empty_responses_dict[f"{od}_nro_calle"] = ""
         empty_responses_dict[f"{od}_comuna"] = ""
-        return empty_adress, empty_responses_dict
+        return empty_responses_dict
 
 def intersection_input_question(od):
     calle1 = st.text_input(
@@ -127,19 +134,23 @@ def intersection_input_question(od):
     )
 
     if calle1 != "" and calle2 != "" and comuna != "":
+
+        st.session_state[f"{od}_ingresado"] = True
+
         adress = f"{calle1} & {calle2}, {comuna}, Chile"
         responses_dict = {}
+        responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_calle1"] = calle1
         responses_dict[f"{od}_calle2"] = calle2          
         responses_dict[f"{od}_comuna"] = comuna
-        return adress, responses_dict   
+        return responses_dict   
     else:
-        empty_adress = ""
         empty_responses_dict = {}
+        empty_responses_dict[f"{od}"] = ""
         empty_responses_dict[f"{od}_calle1"] = ""
         empty_responses_dict[f"{od}_calle2"] = ""
         empty_responses_dict[f"{od}_comuna"] = ""
-        return empty_adress, empty_responses_dict
+        return empty_responses_dict
 
 def landmark_input_question(od):
     landmark = st.text_input(
@@ -153,18 +164,22 @@ def landmark_input_question(od):
     )
 
     if landmark != "" and comuna != "":        
+
+        st.session_state[f"{od}_ingresado"] = True
+
         adress = f"{landmark}, {comuna}, Chile"
         responses_dict = {}
+        responses_dict[f"{od}"] = adress
         responses_dict[f"{od}_hito"] = landmark
         responses_dict[f"{od}_comuna"] = comuna
-        return adress, responses_dict  
+        return responses_dict  
     
     else:
-        empty_adress = ""
         empty_responses_dict = {}
+        empty_responses_dict[f"{od}"] = ""
         empty_responses_dict[f"{od}_hito"] = ""
         empty_responses_dict[f"{od}_comuna"] = ""
-        return empty_adress, empty_responses_dict
+        return empty_responses_dict
 
 #--------------------------------------------------
 # Geocoding  Button
@@ -175,31 +190,38 @@ def generate_geocode_button(od, adress: str):
     geocode_button = st.button(
                             label=f"Georreferenciar {od}",
                             key=f"geocode_{od}_button")
-    
+        
     if geocode_button:
 
         location = georreferenciar(adress)
+
         if location:
-            st.session_state.coords_origen = location
-            st.session_state.center_map_origen = location
-            st.session_state.zoom_map_origen = 13
-
-            map = folium.Map(location = st.session_state["center_map_origen"], 
-                         zoom_start= st.session_state["zoom_map_origen"])
-
-            if st.session_state.coords_origen:
-                folium.Marker(
-                    location=st.session_state.coords_origen,
-                    popup=od,
-                    icon=folium.Icon(color="blue", icon="info-sign")
-                ).add_to(map)
-
-            st_folium(map, width=300, height = 300 ,returned_objects=[], key=f"map_{od}")
+            st.session_state[f"coords_{od.lower()}"] = location
 
         else:
+            st.session_state[f"coords_{od.lower()}"] = None
             st.error("No se encontró la ubicación")
 
-        
+    location = st.session_state.get(f"coords_{od.lower()}", None)
+    deploy_map(location, od)
+
+    return location
+
+def deploy_map(location, od):
+
+    if location:
+        map = folium.Map(location=location, zoom_start=13)
+        folium.Marker(
+            location=location,
+            popup=od,
+            icon=folium.Icon(color="blue", icon="info-sign")
+        ).add_to(map)
+
+    else:
+        map = folium.Map(location=(-33.5070883501777, -70.60581992774767), 
+                         zoom_start= 13)
+
+    st_folium(map, width=300, height = 300 ,returned_objects=[], key=f"map_{od}")
 
 
 

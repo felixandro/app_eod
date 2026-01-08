@@ -16,9 +16,6 @@ def georreferenciar(direccion):
     # Realizar la solicitud GET
     respuesta = requests.get(url, params=params)
 
-    
-
-
     # Verificar si la solicitud fue exitosa
     if respuesta.status_code == 200:
         datos = respuesta.json()

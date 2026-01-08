@@ -50,6 +50,14 @@ if "responses" not in st.session_state:
 if "time_list" not in st.session_state:
     st.session_state["time_list"] = []
 
+# Variable para inicializar registro de Origen y Destino
+
+if "Origen_ingresado" not in st.session_state:
+    st.session_state["Origen_ingresado"] = False
+
+if "Destino_ingresado" not in st.session_state:
+    st.session_state["Destino_ingresado"] = False
+
 # --------------------------------------------------
 # Pantalla 1 // Encuestador y Lugar de Encuesta
 # --------------------------------------------------
@@ -87,5 +95,5 @@ if st.session_state["screen5_completed"]:
 
 
 st.divider()
-st.write(st.session_state["responses"])
+#st.write(st.session_state["responses"])
 
