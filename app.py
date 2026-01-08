@@ -1,10 +1,13 @@
 import streamlit as st
 
 from src.time_utils import process_time_list, record_datetime
+from src.database import send_to_database
 
 import ui.general_screen as gs
 import ui.od_screen as od
 import ui.restart_screen as rs
+
+
 
 # --------------------------------------------------
 # Configuración general de la app
@@ -50,13 +53,8 @@ if "responses" not in st.session_state:
 if "time_list" not in st.session_state:
     st.session_state["time_list"] = []
 
-# Variable para inicializar registro de Origen y Destino
-
-if "Origen_ingresado" not in st.session_state:
-    st.session_state["Origen_ingresado"] = False
-
-if "Destino_ingresado" not in st.session_state:
-    st.session_state["Destino_ingresado"] = False
+if "responses_sent" not in st.session_state:
+    st.session_state["responses_sent"] = False
 
 # --------------------------------------------------
 # Pantalla 1 // Encuestador y Lugar de Encuesta
@@ -90,6 +88,8 @@ if st.session_state["screen5_completed"]:
     process_time_list()
 
     #Enviar Respuestas a BBDD online
+    if not st.session_state["responses_sent"]:
+        send_to_database(st.session_state["responses"])
 
     rs.generate_restart_screen()
 
