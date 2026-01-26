@@ -7,8 +7,6 @@ import ui.general_screen as gs
 import ui.od_screen as od
 import ui.restart_screen as rs
 
-
-
 # --------------------------------------------------
 # Configuración general de la app
 # --------------------------------------------------
@@ -50,6 +48,7 @@ if "responses" not in st.session_state:
     st.session_state["responses"] = {}
 
 # Variable para almacenar la hora de inicio en cada pantalla
+
 if "time_list" not in st.session_state:
     st.session_state["time_list"] = []
 
@@ -57,13 +56,16 @@ if "responses_sent" not in st.session_state:
     st.session_state["responses_sent"] = False
 
 # --------------------------------------------------
-# Pantalla 1 // Encuestador y Lugar de Encuesta
+# Screen 1 // Encuestador y Lugar de Encuesta
 # --------------------------------------------------
 
 if not st.session_state["screen1_completed"]:
 
     gs.generate_general_screen(id_screen=1)
 
+# --------------------------------------------------
+# Screen 2 // Características del Usuario
+# --------------------------------------------------
 
 if st.session_state["screen1_completed"] and not st.session_state["screen2_completed"]:
 
@@ -71,17 +73,33 @@ if st.session_state["screen1_completed"] and not st.session_state["screen2_compl
 
     gs.generate_general_screen(id_screen=2)
 
+# --------------------------------------------------
+# Screen 3 // Características del Viaje
+# --------------------------------------------------
+
 if st.session_state["screen2_completed"] and not st.session_state["screen3_completed"]:
 
     gs.generate_general_screen(id_screen=3)
+
+# --------------------------------------------------
+# OD Screen // Origen y Destino del Viaje
+# --------------------------------------------------
 
 if st.session_state["screen3_completed"] and not st.session_state["od_screen_completed"]:
 
     od.generate_od_screen()
 
+# --------------------------------------------------
+# Screen 5 // Categoría de Usuario
+# --------------------------------------------------
+
 if st.session_state["od_screen_completed"] and not st.session_state["screen5_completed"]:
 
     gs.generate_general_screen(id_screen=5)
+
+# --------------------------------------------------
+# Restart Screen // Nueva Encuesta
+# --------------------------------------------------
 
 if st.session_state["screen5_completed"]:
 
@@ -95,5 +113,5 @@ if st.session_state["screen5_completed"]:
 
 
 st.divider()
-st.write(st.session_state["responses"])
+#st.write(st.session_state["responses"])
 
