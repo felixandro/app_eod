@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 
 def georreferenciar(direccion):
@@ -10,7 +11,7 @@ def georreferenciar(direccion):
     # Parámetros de la solicitud
     params = {
         'address': direccion,
-        'key': "AIzaSyAKqyYtw4VH_3LEo0_c1gSv2yfS2PsFxPQ"
+        'key': st.secrets["api_key"]
     }
     
     # Realizar la solicitud GET
