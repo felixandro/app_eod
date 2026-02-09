@@ -5,8 +5,8 @@ import time
 
 def show_screen1_responses():
     screen1_responses = st.session_state["responses"]["screen1"]
-    st.write(f"**Encuestador**: {screen1_responses["id_encuestador"]}")
-    st.write(f"**Punto de Control**: {screen1_responses["pc"]}")
+    st.write(f"**Encuestador**: {screen1_responses['id_encuestador']}")
+    st.write(f"**Punto de Control**: {screen1_responses['pc']}")
 
 #--------------------------------------------------
 # Button for Next Screen

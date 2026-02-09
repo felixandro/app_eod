@@ -1,11 +1,12 @@
 ﻿type;title;selectbox;selectbox
 key;;ingresos;posesion_veh
 label;Categoría de Usuario;¿En que rango se encuentra su ingreso familiar mensual?;¿Cuántos vehículos posee en su hogar?
-opcion_1;;Menos de $500.000;0
-opcion_2;;Entre $500.001 y $750.000;1
-opcion_3;;Entre $750.001 y $1.000.000;2 o más
-opcion_4;;Entre $1.000.001 y $1.250.000;
-opcion_5;;Entre $1.250.001 y $1.500.000;
-opcion_6;;Entre $1.500.001 y $1.750.000;
-opcion_7;;Entre $1.750.001 y $2.000.000;
-opcion_8;;Más de $2.000.001;
+opcion_1;;Menos de $350.000;0
+opcion_2;;Entre $350.001 y $650.000;1
+opcion_3;;Entre $650.001 y $950.000;2 o más
+opcion_4;;Entre $950.001 y $1.375.000;
+opcion_5;;Entre $1.375.001 y $1.850.000;
+opcion_6;;Entre $1.850.001 y $2.325.000;
+opcion_7;;Entre $2.325.001 y $2.800.000;
+opcion_8;;Entre $2.800.001 y $3.300.000;
+opcion_9;;Más de $3.300.001;

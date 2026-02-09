@@ -30,9 +30,33 @@ if "screen1_completed" not in st.session_state:
 if "screen2_completed" not in st.session_state:
     st.session_state["screen2_completed"] = False
 
+# Screen21: Características del Usuario (Automóvil Particular)
+if "screen21_completed" not in st.session_state:
+    st.session_state["screen21_completed"] = False
+
+# Screen22: Características del Usuario (Bus)
+if "screen22_completed" not in st.session_state:
+    st.session_state["screen22_completed"] = False
+
+# Screen23: Características del Usuario (Tren)
+if "screen23_completed" not in st.session_state:
+    st.session_state["screen23_completed"] = False
+
 # Screen3: Características del Viaje
 if "screen3_completed" not in st.session_state:
     st.session_state["screen3_completed"] = False
+
+# Screen31: Características del Viaje (Automóvil Particular)
+if "screen31_completed" not in st.session_state:
+    st.session_state["screen31_completed"] = False
+
+# Screen32: Características del Viaje (Bus)
+if "screen32_completed" not in st.session_state:
+    st.session_state["screen32_completed"] = False
+
+# Screen33: Características del Viaje (Tren)
+if "screen33_completed" not in st.session_state:
+    st.session_state["screen33_completed"] = False
 
 # OD Screen: Origen y Destino del Viaje
 if "od_screen_completed" not in st.session_state:
@@ -67,25 +91,56 @@ if not st.session_state["screen1_completed"]:
 # Screen 2 // Características del Usuario
 # --------------------------------------------------
 
-if st.session_state["screen1_completed"] and not st.session_state["screen2_completed"]:
+screen_2x_completed = any([
+    st.session_state["screen21_completed"],
+    st.session_state["screen22_completed"],
+    st.session_state["screen23_completed"]
+])
+
+if st.session_state["screen1_completed"] and not screen_2x_completed:
 
     record_datetime()
 
-    gs.generate_general_screen(id_screen=2)
+    tipo_veh = st.session_state["responses"]["screen1"]["pc"].split()[0]
+
+    if tipo_veh == "Terminal":
+        gs.generate_general_screen(id_screen=22)
+
+    elif tipo_veh == "Estación":
+        gs.generate_general_screen(id_screen=23)
+
+    else:
+        gs.generate_general_screen(id_screen=21)
+
 
 # --------------------------------------------------
 # Screen 3 // Características del Viaje
 # --------------------------------------------------
 
-if st.session_state["screen2_completed"] and not st.session_state["screen3_completed"]:
+screen_3x_completed = any([
+    st.session_state["screen31_completed"],
+    st.session_state["screen32_completed"],
+    st.session_state["screen33_completed"]
+])
 
-    gs.generate_general_screen(id_screen=3)
+if screen_2x_completed and not screen_3x_completed:
+
+    tipo_veh = st.session_state["responses"]["screen1"]["pc"].split()[0]
+
+    if tipo_veh == "Terminal":
+        gs.generate_general_screen(id_screen=32)
+
+    elif tipo_veh == "Estación":
+        gs.generate_general_screen(id_screen=33)
+
+    else:
+        gs.generate_general_screen(id_screen=31)
 
 # --------------------------------------------------
 # OD Screen // Origen y Destino del Viaje
 # --------------------------------------------------
 
-if st.session_state["screen3_completed"] and not st.session_state["od_screen_completed"]:
+if screen_3x_completed and not st.session_state["od_screen_completed"]:
 
     od.generate_od_screen()
 
@@ -113,5 +168,5 @@ if st.session_state["screen5_completed"]:
 
 
 st.divider()
-#st.write(st.session_state["responses"])
+st.write(st.session_state["responses"])
 

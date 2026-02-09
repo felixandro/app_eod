@@ -78,8 +78,8 @@ def generate_location_question_widget(od):
         responses_dict[f"{od}_latitude"] = location[0] if location else ""
         responses_dict[f"{od}_longitude"] = location[1] if location else ""
 
-        if adress == st.session_state.get(f"{od}_geocoded", ""):
-            st.success("Coincide la Dirección Ingresada con la Georreferenciada")
+        #if adress == st.session_state.get(f"{od}_geocoded", ""):
+        #    st.success("Coincide la Dirección Ingresada con la Georreferenciada")
 
     st.divider()
 
