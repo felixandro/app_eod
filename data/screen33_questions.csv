@@ -1,0 +1,12 @@
+﻿type;title;selectbox;selectbox;selectbox;selectbox;selectbox;number_input;selectbox
+key;;proposito;estacion_origen;modo_acceso;estacion_destino;modo_egreso;tarifa;mot_no_auto
+label;Características del Viaje;¿Cuál es el motivo de su viaje?;¿En que estación aborda el tren?;¿Cómo llegó a la estación?;¿En que estación baja del tren?;Una vez baja del tren ¿Cómo llega a su destino?;Indique la tarifa que paga por el viaje (Valor por persona);¿Por qué no realiza este viaje en automóvil particular?
+opcion_1;;Trabajo;Temuco;Caminando;Temuco;Caminando;400;Porque no tengo automóvil disponible
+opcion_2;;Estudio;Padre Las Casas;En Transporte Público;Padre Las Casas;En Transporte Público;30000;Tengo automóvil disponible, pero no tengo licencia
+opcion_3;;Trámites;Freire;En Taxi, Uber o similar;Freire;En Taxi, Uber o similar;;Otro motivo
+opcion_4;;Compras;Pitrufquén;En automóbil particular;Pitrufquén;En automóbil particular;;
+opcion_5;;Salud;;;En otro modo;En otro modo;;
+opcion_6;;Actividades Sociales;;;;;;
+opcion_7;;Vacaciones o Turismo;;;;;;
+opcion_8;;Asuntos Personales;;;;;;
+opcion_9;;Otro;;;;;;

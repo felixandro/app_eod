@@ -1,0 +1,10 @@
+﻿type;title;selectbox;number_input;selectbox
+key;;genero;edad;sentido
+label;Características del Usuario;¿Cuál es su Género?;¿Cuál es su Edad?;Sentido de Tránsito
+opcion_1;;Femenino;14;Norte - Sur
+opcion_2;;Masculino;100;Sur - Norte
+opcion_3;;;;Oriente - Poniente
+opcion_4;;;;Poniente - Oriente
+opcion_5;;;;
+opcion_6;;;;
+opcion_7;;;;

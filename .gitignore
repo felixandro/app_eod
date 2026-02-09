@@ -9,7 +9,6 @@ ui/__pycache__/
 # Carpetas de proyecto
 assets/
 config/
-data/
 .streamlit/
 
 # Archivos batch
